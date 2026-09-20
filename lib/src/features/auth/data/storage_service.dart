@@ -5,19 +5,13 @@ class StorageService {
   final FlutterSecureStorage storage;
   StorageService(this.storage);
 
-  Future<Result<void>> savePin(String pin) async {
+  Future<Result<void>> savePassPin(String pass, String pin) async {
     try {
-      await storage.write(key: 'pin', value: pin);
+     await  Future.wait([
+        storage.write(key: 'pin', value: pin),
 
-      return Result.success(null);
-    } catch (e) {
-      return Result.failure(e.toString());
-    }
-  }
-
-  Future<Result<void>> savePass(String pass) async {
-    try {
-      await storage.write(key: 'pass', value: pass);
+        storage.write(key: 'pass', value: pass)
+      ]);
       return Result.success(null);
     } catch (e) {
       return Result.failure(e.toString());
@@ -39,7 +33,7 @@ class StorageService {
   Future<Result<String>> readPass() async {
     try {
       final savedpass = await storage.read(key: 'pass');
-      if (savedpass == null||savedpass.isEmpty) {
+      if (savedpass == null || savedpass.isEmpty) {
         return Result.failure('no password saved yet');
       }
       return Result.success(savedpass);

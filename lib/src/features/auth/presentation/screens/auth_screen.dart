@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:password_manager/src/core/constants/colors.dart';
-import 'package:password_manager/src/features/auth/presentation/widgets/custom_field.dart';
+import 'package:password_manager/src/features/auth/presentation/containers/auth_state_container.dart';
+
 import 'package:password_manager/src/features/auth/presentation/widgets/valt_container.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -28,14 +29,8 @@ class AuthScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
-                width: 70,
-                child: CustomField(
-                 
-                  textInputAction: TextInputAction.done,
-                  hintext: '****',
-                ),
-              ),
+              
+              AuthStateContainer(),
             ],
           ),
         ),

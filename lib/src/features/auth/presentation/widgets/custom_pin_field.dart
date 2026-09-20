@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CustomField extends StatelessWidget {
+class CustomPinField extends StatelessWidget {
   
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
@@ -12,7 +12,7 @@ class CustomField extends StatelessWidget {
   
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
-  const CustomField({
+  const CustomPinField({
     super.key,
     this.inputFormatters,
     this.keyboardType,
@@ -50,7 +50,7 @@ class CustomField extends StatelessWidget {
       child: TextFormField(
         obscureText:true,
         onFieldSubmitted: onfieldsubmitted,
-        
+      
         controller: controller,
         textInputAction: textInputAction,
         decoration: inputDecoration(),

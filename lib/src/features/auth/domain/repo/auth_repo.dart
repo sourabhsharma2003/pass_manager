@@ -5,7 +5,8 @@ abstract class AuthRepo {
 
   Future<Result<String>> readPin();
 
-  Future<Result<void>> savePass(String pass);
+  Future<Result<void>> savePassPin(String pass, String pin);
+  Future<Result<void>> isBioAuthAvaible();
 
-  Future<Result<void>> savePin(String pin);
+  Future<Result<void>> bioAuth();
 }

@@ -2,30 +2,39 @@ import 'package:password_manager/src/core/result_wrapper/result.dart';
 import 'package:password_manager/src/features/auth/domain/repo/auth_repo.dart';
 
 class AuthUseCases {
-  final Savepin savepin;
-  final SavePass savePass;
+  final SavePassPin savePassPin;
   final CheckPass checkPass;
   final CheckPin checkPin;
+  final BioAuth bioAuth;
+  final VeriFy veriFy;
   AuthUseCases(AuthRepo repo)
-    : savepin = Savepin(repo),
-      savePass = SavePass(repo),
+    : savePassPin = SavePassPin(repo),
       checkPass = CheckPass(repo),
-      checkPin = CheckPin(repo);
+      checkPin = CheckPin(repo),
+      bioAuth = BioAuth(repo),
+      veriFy = VeriFy(repo);
 }
 
-class Savepin {
+class VeriFy {
   final AuthRepo repo;
-  Savepin(this.repo);
-  Future<Result<void>> call(String pin) async {
-    return await repo.savePin(pin);
+  VeriFy(this.repo);
+  Future<Result<void>> call() async {
+    final ispinexist = await repo.readPin();
+    if (ispinexist.isFailure()) {
+      return Result.failure(ispinexist.error);
+    }
+    return Result.success(null);
   }
 }
 
-class SavePass {
+class SavePassPin {
   final AuthRepo repo;
-  SavePass(this.repo);
-  Future<Result<void>> call(String pass) async {
-    return await repo.savePass(pass);
+  SavePassPin(this.repo);
+  Future<Result<void>> call(String pass, String pin) async {
+    if (pin.length > 4 || pin.length < 4) {
+      return Result.failure('pin should be 4 digits');
+    }
+    return await repo.savePassPin(pass, pin);
   }
 }
 
@@ -37,10 +46,11 @@ class CheckPin {
     if (savedpin.isFailure()) {
       return Result.failure(savedpin.error);
     }
+
     if (savedpin.data == pin) {
       return Result.success(null);
     }
-    return Result.failure('Wrong pin');
+    return Result.failure('Wrong pin or pin Not Set yet');
   }
 }
 
@@ -55,6 +65,22 @@ class CheckPass {
     if (savedPass.data == pass) {
       return Result.success(null);
     }
-    return Result.failure('Wrong password');
+    return Result.failure('Wrong password or Not Set yet');
+  }
+}
+
+class BioAuth {
+  final AuthRepo repo;
+  BioAuth(this.repo);
+  Future<Result<void>> call() async {
+    final isbioAvailable = await repo.isBioAuthAvaible();
+    if (isbioAvailable.isFailure()) {
+      return Result.failure(isbioAvailable.error);
+    }
+    final bioAuth = await repo.bioAuth();
+    if (bioAuth.isFailure()) {
+      return Result.failure(bioAuth.error);
+    }
+    return Result.success(null);
   }
 }

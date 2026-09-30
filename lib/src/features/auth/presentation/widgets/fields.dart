@@ -61,9 +61,9 @@ class Fields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
+    return 
+      TextFormField(
+      
         controller: controller,
         obscureText: obscuretext,
         onFieldSubmitted: onfieldsubmitted,
@@ -74,7 +74,7 @@ class Fields extends StatelessWidget {
         maxLength: maxlength,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
-      ),
+      
     );
   }
 }

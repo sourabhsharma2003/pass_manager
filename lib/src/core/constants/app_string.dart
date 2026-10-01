@@ -1,4 +1,5 @@
 class AppString {
+  static const String appName = 'Key Vault';
   static const String forgot =
       'Forgetting your PIN or master password will permanently erase all saved credentials.';
   static const String pinError =

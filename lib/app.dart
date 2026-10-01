@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/src/features/auth/presentation/screens/auth_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:password_manager/src/core/appshell/appshell.dart';
 
-class Home extends StatelessWidget {
+class Home extends ConsumerWidget {
   const Home({super.key});
   @override
-  Widget build(BuildContext context) {
-    return AuthScreen();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Appshell();
   }
 }

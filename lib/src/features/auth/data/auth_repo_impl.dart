@@ -6,7 +6,7 @@ import 'package:password_manager/src/features/auth/domain/repo/auth_repo.dart';
 class AuthRepoImpl implements AuthRepo {
   final StorageService service;
   final BiometricService biometricService;
-  AuthRepoImpl(this.service, this.biometricService);
+  const AuthRepoImpl(this.service, this.biometricService);
   @override
   Future<Result<String>> readPass() async {
     final result = await service.readPass();
@@ -41,7 +41,7 @@ class AuthRepoImpl implements AuthRepo {
     if (bioauth.isFailure()) {
       return Result.failure(bioauth.error);
     }
-    return Result.success(true);
+    return Result.success(null);
   }
 
   @override

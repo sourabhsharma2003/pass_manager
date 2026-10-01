@@ -1,23 +1,26 @@
+import 'package:password_manager/src/core/constants/app_string.dart';
 import 'package:password_manager/src/core/result_wrapper/result.dart';
 import 'package:password_manager/src/features/auth/domain/repo/auth_repo.dart';
 
 class AuthUseCases {
-  final SavePassPin savePassPin;
+  final CreatePassPin createPassPin;
   final CheckPass checkPass;
   final CheckPin checkPin;
   final BioAuth bioAuth;
   final VeriFy veriFy;
-  AuthUseCases(AuthRepo repo)
-    : savePassPin = SavePassPin(repo),
+  
+   AuthUseCases(AuthRepo repo)
+    : createPassPin = CreatePassPin(repo),
       checkPass = CheckPass(repo),
       checkPin = CheckPin(repo),
       bioAuth = BioAuth(repo),
+      
       veriFy = VeriFy(repo);
 }
 
 class VeriFy {
   final AuthRepo repo;
-  VeriFy(this.repo);
+  const VeriFy(this.repo);
   Future<Result<void>> call() async {
     final ispinexist = await repo.readPin();
     if (ispinexist.isFailure()) {
@@ -27,9 +30,9 @@ class VeriFy {
   }
 }
 
-class SavePassPin {
+class CreatePassPin {
   final AuthRepo repo;
-  SavePassPin(this.repo);
+  const CreatePassPin(this.repo);
   Future<Result<void>> call(String pass, String pin) async {
     if (pin.length > 4 || pin.length < 4) {
       return Result.failure('pin should be 4 digits');
@@ -40,7 +43,7 @@ class SavePassPin {
 
 class CheckPin {
   final AuthRepo repo;
-  CheckPin(this.repo);
+  const CheckPin(this.repo);
   Future<Result<void>> call(String pin) async {
     final savedpin = await repo.readPin();
     if (savedpin.isFailure()) {
@@ -50,13 +53,13 @@ class CheckPin {
     if (savedpin.data == pin) {
       return Result.success(null);
     }
-    return Result.failure('Wrong pin or pin Not Set yet');
+    return Result.failure(AppString.pinError);
   }
 }
 
 class CheckPass {
   final AuthRepo repo;
-  CheckPass(this.repo);
+  const CheckPass(this.repo);
   Future<Result<void>> call(String pass) async {
     final savedPass = await repo.readPass();
     if (savedPass.isFailure()) {
@@ -65,13 +68,13 @@ class CheckPass {
     if (savedPass.data == pass) {
       return Result.success(null);
     }
-    return Result.failure('Wrong password or Not Set yet');
+    return Result.failure(AppString.passError);
   }
 }
 
 class BioAuth {
   final AuthRepo repo;
-  BioAuth(this.repo);
+  const BioAuth(this.repo);
   Future<Result<void>> call() async {
     final isbioAvailable = await repo.isBioAuthAvaible();
     if (isbioAvailable.isFailure()) {
@@ -84,3 +87,5 @@ class BioAuth {
     return Result.success(null);
   }
 }
+
+

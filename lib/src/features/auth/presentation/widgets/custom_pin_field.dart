@@ -7,7 +7,7 @@ class CustomPinField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final String hintext;
   final Function(String)? onfieldsubmitted;
-  
+  final void Function(String)? onChanged;
 
   
   final TextInputType? keyboardType;
@@ -16,7 +16,7 @@ class CustomPinField extends StatelessWidget {
     super.key,
     this.inputFormatters,
     this.keyboardType,
-  
+    this.onChanged,
    
     this.controller,
     required this.textInputAction,
@@ -50,7 +50,7 @@ class CustomPinField extends StatelessWidget {
       child: TextFormField(
         obscureText:true,
         onFieldSubmitted: onfieldsubmitted,
-      
+        onChanged:onChanged ,
         controller: controller,
         textInputAction: textInputAction,
         decoration: inputDecoration(),

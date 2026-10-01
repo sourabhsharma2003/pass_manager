@@ -3,7 +3,7 @@ import 'package:password_manager/src/core/result_wrapper/result.dart';
 
 class BiometricService {
   final LocalAuthentication auth;
-  BiometricService(this.auth);
+  const BiometricService(this.auth);
 
   Future<Result<void>> isBiometAvailable() async {
     try {

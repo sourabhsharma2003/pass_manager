@@ -19,4 +19,5 @@ abstract class WidgetKeys {
   static const loginErrordialog = ValueKey('login_error_dialog');
   static const loginpassfield = ValueKey('login_pass_field');
   static const loginpassbutton = ValueKey('login_pass_button');
+  static const loginPinLoginButton = ValueKey('Login_pin_button');
 }

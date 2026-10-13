@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 abstract class WidgetKeys {
   static const authScreen = ValueKey('auth_screen');
   static const entryScreen = ValueKey('entry_screen');
+  static const entryEmptyWidget = ValueKey('entry_empty');
+  static const entryCategoryWidget = ValueKey('entry_category_widget');
+  static const entrySearchbar = ValueKey('entry_searchbar');
+  static const queryEntryWidget = ValueKey('Query_entryWidget');
+  static const queryNoresultWidget = ValueKey('no_result');
+  static const addEntrybutton = ValueKey('add_Entry_button');
+  static const entryFormbottomshett = ValueKey('entry_form');
+  static const saveEntrybutton = ValueKey('save_Entry');
+  static const entrynamefield = ValueKey('entry_namefield');
+  static const entryMailorUserfield = ValueKey('entry_Mailor_user');
+  static const entrypassfield = ValueKey('entry_passfield');
+  static const dropdowncategory = ValueKey('drpdown');
   static const usePinView = ValueKey('use_pin_view');
   static const bioAuthView = ValueKey('bio_auth_view');
   static const usePasswordView = ValueKey('use_pass_view');

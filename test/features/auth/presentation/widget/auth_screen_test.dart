@@ -77,7 +77,9 @@ void main() {
     when(() => repo.bioAuth()).thenAnswer((_) async => Result.success(null));
 
     await tester.pumpWidget(providerscope);
-    await tester.pumpAndSettle();
+    await tester.pump();
+
+    await tester.pump(const Duration(milliseconds: 300));
     expect(find.byKey(WidgetKeys.entryScreen), findsOneWidget);
   }));
 
@@ -91,10 +93,11 @@ void main() {
     await tester.pumpWidget(providerscope);
 
     await tester.pumpAndSettle();
-
+    expect(find.byKey(WidgetKeys.usePinView), findsOneWidget);
     final pinfield = find.byKey(WidgetKeys.loginpinfield);
+    expect(pinfield, findsOneWidget);
     await tester.enterText(pinfield, '3156');
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     expect(find.byKey(WidgetKeys.entryScreen), findsOneWidget);
   }));
@@ -142,7 +145,7 @@ void main() {
 
     final passbuttom = find.byKey(WidgetKeys.loginpassbutton);
     await tester.tap(passbuttom);
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     expect(find.byKey(WidgetKeys.entryScreen), findsOneWidget);
   }));

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:password_manager/src/features/entries/domain/entry_domain.dart';
 import 'package:password_manager/src/features/entries/domain/entry_use_cases.dart';
-import 'package:password_manager/src/features/entries/presentation/riverpod/entry_state.dart';
+import 'package:password_manager/src/features/entries/presentation/riverpod/entry_states.dart';
 import 'package:password_manager/src/features/entries/presentation/riverpod/providers.dart';
 
 class EntryNotifier extends Notifier<EntryPageState> {

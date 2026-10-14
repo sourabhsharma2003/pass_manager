@@ -4,14 +4,15 @@ class VaultContainer extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onTap;
   final double scale;
-  
+  final double? iconsize;
   final Color? color;
   const VaultContainer({
     super.key,
+    this.iconsize,
     required this.icon,
     this.onTap,
     required this.scale,
-    
+
     this.color,
   });
 
@@ -24,11 +25,10 @@ class VaultContainer extends StatelessWidget {
         width: scale,
         decoration: BoxDecoration(
           color: color?.withValues(alpha: 0.1),
-          border: Border.all(color: color??Colors.amber, width: 1),
-          borderRadius: BorderRadius.all(const Radius.circular(16)),
-         
+          border: Border.all(color: color ?? Colors.amber, width: 1),
+          borderRadius: BorderRadius.all(const Radius.circular(12)),
         ),
-        child: Icon(icon),
+        child: Icon(icon, size: iconsize),
       ),
     );
   }

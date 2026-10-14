@@ -14,7 +14,7 @@ class _BioAuthView extends ConsumerState<BioAuthView> {
   @override
   void initState() {
     super.initState();
-     WidgetsBinding.instance.addPostFrameCallback((_) {
+     Future.microtask(() {
     ref.read(authNotifierProvider.notifier).bioAuth();
   });
   }

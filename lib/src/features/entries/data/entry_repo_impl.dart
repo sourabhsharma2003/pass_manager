@@ -40,4 +40,9 @@ class EntryRepoImpl implements EntryRepo {
     entries.add(entry.todomain());
     return await data.saveEntry(entry);
   }
+
+  @override
+  Future<Result<void>> deleteDatabase() async {
+    return await data.deleteDatabase();
+  }
 }

@@ -7,11 +7,13 @@ class EntryUseCases {
   final GetEntries getEntries;
   final DeleteEntry deleteEntry;
   final SearchEntry searchEntry;
+  final DeleteDatabase deleteDatabase;
   EntryUseCases(EntryRepo repo)
     : addNewEntry = AddNewEntry(repo),
       getEntries = GetEntries(repo),
       deleteEntry = DeleteEntry(repo),
-      searchEntry = SearchEntry(repo);
+      searchEntry = SearchEntry(repo),
+      deleteDatabase = DeleteDatabase(repo);
 }
 
 class AddNewEntry {
@@ -19,6 +21,14 @@ class AddNewEntry {
   const AddNewEntry(this.repo);
   Future<Result<void>> call(EntryDomain entry) async {
     return await repo.saveEntry(entry);
+  }
+}
+
+class DeleteDatabase {
+  final EntryRepo repo;
+  const DeleteDatabase(this.repo);
+  Future<Result<void>> call() async {
+    return await repo.deleteDatabase();
   }
 }
 
@@ -58,12 +68,14 @@ class SearchEntry {
     if (result.isFailure()) {
       return Result.failure(result.error);
     }
-     if (result.data == null || result.data!.isEmpty) {
+    if (result.data == null || result.data!.isEmpty) {
       return Result.success([]);
     }
     final queryresult = result.data
         ?.where(
-          (v) => v.sitename.toLowerCase().contains(query.trim().toLowerCase())&&v.sitename.startsWith(query[0])
+          (v) =>
+              v.sitename.toLowerCase().contains(query.trim().toLowerCase()) &&
+              v.sitename.startsWith(query[0]),
         )
         .toList();
 

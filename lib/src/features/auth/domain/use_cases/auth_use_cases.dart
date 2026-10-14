@@ -8,13 +8,13 @@ class AuthUseCases {
   final CheckPin checkPin;
   final BioAuth bioAuth;
   final VeriFy veriFy;
-  
-   AuthUseCases(AuthRepo repo)
+  final Forgot forgot;
+  AuthUseCases(AuthRepo repo)
     : createPassPin = CreatePassPin(repo),
       checkPass = CheckPass(repo),
       checkPin = CheckPin(repo),
       bioAuth = BioAuth(repo),
-      
+      forgot=Forgot(repo),
       veriFy = VeriFy(repo);
 }
 
@@ -57,6 +57,17 @@ class CheckPin {
   }
 }
 
+class Forgot {
+  final AuthRepo repo;
+  const Forgot(this.repo);
+  Future<Result<void>> call(String pin, String pass) async {
+    if (pin.length > 4 || pin.length < 4) {
+      return Result.failure('pin should be 4 digits');
+    }
+    return await repo.forgot(pin, pass);
+  }
+}
+
 class CheckPass {
   final AuthRepo repo;
   const CheckPass(this.repo);
@@ -87,5 +98,3 @@ class BioAuth {
     return Result.success(null);
   }
 }
-
-

@@ -71,7 +71,7 @@ class AuthNotifier extends Notifier<AuthState> {
       authenticated: false,
       authScreenState: AuthScreenState.loading,
     );
-    await Future.delayed(Duration(milliseconds: 500));
+    
     final result = await useCases.checkPin.call(pin);
     if (result.isFailure()) {
       state = state.copywith(

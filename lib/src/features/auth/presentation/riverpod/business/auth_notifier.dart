@@ -107,7 +107,7 @@ class AuthNotifier extends Notifier<AuthState> {
       authenticated: false,
       authScreenState: AuthScreenState.loading,
     );
-    final result = await useCases.createPassPin.call(pass, pin);
+    final result = await useCases.forgot.call(pin, pass);
     if (result.isFailure()) {
       state = state.copywith(
         error: result.error,

@@ -63,6 +63,16 @@ class EntryDatasorce {
     }
   }
 
+  Future<Result<void>> deleteDatabase() async {
+    try {
+      final db = await init();
+      await db.delete('entries');
+      return Result.success(null);
+    } catch (e) {
+      return Result.failure(e.toString());
+    }
+  }
+
   void resetdbforTest() {
     _database = null;
   }

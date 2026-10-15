@@ -41,8 +41,4 @@ class EntryRepoImpl implements EntryRepo {
     return await data.saveEntry(entry);
   }
 
-  @override
-  Future<Result<void>> deleteDatabase() async {
-    return await data.deleteDatabase();
-  }
 }

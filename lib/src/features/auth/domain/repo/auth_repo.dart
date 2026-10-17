@@ -9,4 +9,5 @@ abstract class AuthRepo {
   Future<Result<void>> isBioAuthAvaible();
 
   Future<Result<void>> bioAuth();
+  Future<Result<void>> forgot(String pin, String pass);
 }

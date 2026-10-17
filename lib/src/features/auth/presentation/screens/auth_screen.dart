@@ -40,7 +40,7 @@ class AuthScreen extends ConsumerWidget {
         onTap: () {
           Navigator.pop(context);
         },
-        actionName: 'Retry',
+        actionName: 'Ok',
       ),
     );
   }
@@ -58,9 +58,11 @@ class AuthScreen extends ConsumerWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: SingleChildScrollView( 
+    
+      child:  Column(mainAxisSize: .min,
             children: [
-              const SizedBox(height: 100),
+              const SizedBox(height: 50),
               vaultContainer(),
               appTitlewidget(),
               
@@ -71,6 +73,6 @@ class AuthScreen extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

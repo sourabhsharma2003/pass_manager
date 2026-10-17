@@ -41,7 +41,11 @@ A secure offline password manager built with Flutter. The application allows use
 
 ## Screenshots
 
-_Add screenshots here_
+| PIN Unlock | Add Entry | Categories |
+| :---: | :---: | :---: |
+| [![PIN View](screenshots/pin_view.dart.png)](screenshots/) | [![Add Entry](screenshots/add_entry_view.png)](screenshots/) | [![Category Page](screenshots/category_page.png)](screenshots/) |
+
+> [📁 View all screenshots in folder](screenshots/)
 
 ## Getting Started
 

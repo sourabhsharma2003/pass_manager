@@ -26,19 +26,22 @@ class _UserPassView extends ConsumerState<UserPassView> {
     final state = ref.watch(
       authLocalUiProvider.select((s) => s.loginpassobscure),
     );
-    return Fields(
-      key: WidgetKeys.loginpassfield,
-      obscuretext: state,
-      hintext: 'Password',
-      controller: controller,
-      onfieldsubmitted: (v)=>ref
-              .read(authNotifierProvider.notifier)
-              .loginviaPassword(controller.text.trim()),
-      suffixicon: IconButton(
-        onPressed: () {
-          ref.read(authLocalUiProvider.notifier).loginpassObscure();
-        },
-        icon: Icon(state ? Icons.visibility_off : Icons.visibility),
+    return Padding(
+      padding: const EdgeInsets.only(top:8.0),
+      child: Fields(
+        key: WidgetKeys.loginpassfield,
+        obscuretext: state,
+        hintext: 'Password',
+        controller: controller,
+        onfieldsubmitted: (v)=>ref
+                .read(authNotifierProvider.notifier)
+                .loginviaPassword(controller.text.trim()),
+        suffixicon: IconButton(
+          onPressed: () {
+            ref.read(authLocalUiProvider.notifier).loginpassObscure();
+          },
+          icon: Icon(state ? Icons.visibility_off : Icons.visibility),
+        ),
       ),
     );
   }

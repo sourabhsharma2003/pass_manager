@@ -18,7 +18,14 @@ abstract class MockEntries {
     );
 
     static const entrywithid=EntryModel(
-      id: '',
+      id: 'itemid2',
+      sitename: 'entry',
+      userNameOrEmail: 'test@gmail.com',
+      password: 'testpass',
+      entryCategory: EntryCategory.others,
+    );
+     static const entrywithid2=EntryModel(
+      id: 'itemid2',
       sitename: 'entry',
       userNameOrEmail: 'test@gmail.com',
       password: 'testpass',

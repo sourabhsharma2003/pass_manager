@@ -1,9 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:password_manager/src/core/constants/entry_sql_constant.dart';
+import 'package:password_manager/src/core/mocks/mock_entries.dart';
 import 'package:password_manager/src/features/auth/data/auth_repo_impl.dart';
 import 'package:password_manager/src/features/auth/data/biometric_service.dart';
 import 'package:password_manager/src/features/auth/data/storage_service.dart';
 import 'package:password_manager/src/features/auth/domain/use_cases/auth_use_cases.dart';
+import 'package:password_manager/src/features/entries/data/entry_datasorce.dart';
+import 'package:sqflite_common_ffi/sqflite_common_ffi.dart';
 
 import '../data/bio_test.dart';
 import '../data/storage_test.dart';
@@ -15,12 +19,22 @@ void main() {
   late AuthRepoImpl repo;
   late FakeLocalAuth fakeLocalAuth;
   late AuthUseCases authUseCases;
-  setUp(() {
+  late EntryDatasorce database;
+  late Database db;
+
+  setUp(() async {
+    databaseFactory = databaseFactoryFfi;
+
+    db = await databaseFactory.openDatabase(inMemoryDatabasePath);
+    await db.execute(EntrySqlConstant.table);
+    database = EntryDatasorce();
+    await database.init(customdb: db);
+
     fakestorage = Fakestorage();
     storageService = StorageService(fakestorage);
     fakeLocalAuth = FakeLocalAuth();
     biometricService = BiometricService(fakeLocalAuth);
-    repo = AuthRepoImpl(storageService, biometricService);
+    repo = AuthRepoImpl(storageService, biometricService, database);
     authUseCases = AuthUseCases(repo);
   });
 
@@ -95,4 +109,47 @@ void main() {
     final result = await authUseCases.checkPass.call('prop');
     expect(result.isFailure(), true);
   });
+
+  test('testing Forgot use Case if bioauthnotavailable', () async {
+    final result = await database.saveEntry(MockEntries.entrywithid);
+    expect(result.isSuccess(), true);
+    final getentrie = await database.getentry();
+    expect(getentrie.data?.isNotEmpty, true);
+    final forgt = await authUseCases.forgot.call('3156', 'Sruabhd34');
+    expect(forgt.isSuccess(), true);
+    final freshentry = await database.getentry();
+
+    expect(freshentry.data?.isEmpty, true);
+  });
+
+  test(
+    'testing Forgot use Case if bioauthavailable and authenticated',
+    () async {
+      stub(isavailble: true, authenticated: true);
+      final result = await database.saveEntry(MockEntries.entrywithid);
+      expect(result.isSuccess(), true);
+      final getentrie = await database.getentry();
+      expect(getentrie.data?.isNotEmpty, true);
+      final forgt = await authUseCases.forgot.call('3156', 'Sruabhd34');
+      expect(forgt.isSuccess(), true);
+      final freshentry = await database.getentry();
+
+      expect(freshentry.data?.isEmpty, true);
+    },
+  );
+   test(
+    'testing Forgot use Case if bioauthavailable and unauthenticated',
+    () async {
+      stub(isavailble: true, authenticated: false);
+      final result = await database.saveEntry(MockEntries.entrywithid);
+      expect(result.isSuccess(), true);
+      final getentrie = await database.getentry();
+      expect(getentrie.data?.isNotEmpty, true);
+      final forgt = await authUseCases.forgot.call('3156', 'Sruabhd34');
+      expect(forgt.isFailure(), true);
+      final freshentry = await database.getentry();
+
+      expect(freshentry.data?.isNotEmpty, true);
+    },
+  );
 }

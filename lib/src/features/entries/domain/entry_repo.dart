@@ -5,5 +5,4 @@ abstract class EntryRepo {
   Future<Result<void>> saveEntry(EntryDomain domain);
   Future<Result<List<EntryDomain>>> getEntries();
   Future<Result<void>> deleteEntry(String id);
-  Future<Result<void>> deleteDatabase();
 }

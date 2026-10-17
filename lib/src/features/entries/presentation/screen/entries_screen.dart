@@ -60,7 +60,7 @@ class _EntriesScreenState extends ConsumerState<EntriesScreen> {
 
   Widget searchbar() {
     return CustomSearchbar(
-      hintText: 'Search Entry',
+      hintText: 'Search UserNameOrEmail',
       onSearch: () {
         if (controller.text.isEmpty) {
           ref.read(entryNotifierProvider.notifier).getEntries();
@@ -119,11 +119,11 @@ class _EntriesScreenState extends ConsumerState<EntriesScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(100, 70),
-        child: Row(
+        child:SafeArea(child:  Row(
           mainAxisAlignment: .spaceBetween,
           mainAxisSize: .max,
           children: [vault(), apptitle(), add()],
-        ),
+        )),
       ),
       body: Center(child: Column(children: [searchbar(), EntryViewSwitcher()])),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:password_manager/src/features/entries/domain/entry_domain.dart';
-import 'package:password_manager/src/features/entries/presentation/container/entry_actions_container.dart';
+import 'package:password_manager/src/features/entries/presentation/container/entries_card_actions_container.dart';
 
 import 'package:password_manager/src/features/entries/presentation/widgets/alphabet_random_profile_widget.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/entry_card.dart';
@@ -23,7 +23,7 @@ class CategorizeEntriesView extends StatelessWidget {
         ),
         itembuilder: (item) => EntryCard(
           key: ValueKey(item.id),
-          leadingWidget: AlphabetRandomProfileWidget(name: item.sitename),
+          leadingWidget: AlphabetRandomProfileWidget(name: item.userNameOrEmail),
           title: item.sitename,
           subtitle: item.userNameOrEmail,
           trailing: EntryActionsContainer( id: item.id, password: item.password),

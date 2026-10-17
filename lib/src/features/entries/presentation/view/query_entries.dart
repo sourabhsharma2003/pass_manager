@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:password_manager/src/features/entries/domain/entry_domain.dart';
-import 'package:password_manager/src/features/entries/presentation/container/entry_actions_container.dart';
+import 'package:password_manager/src/features/entries/presentation/container/entries_card_actions_container.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/alphabet_random_profile_widget.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/entry_card.dart';
 
@@ -22,7 +22,7 @@ class QueryEntries extends ConsumerWidget {
         itemBuilder: (context, index) {
           final entry = queryentries[index];
           return EntryCard(
-            leadingWidget: AlphabetRandomProfileWidget(name: entry.sitename),
+            leadingWidget: AlphabetRandomProfileWidget(name: entry.userNameOrEmail),
             title: entry.sitename,
             subtitle: entry.userNameOrEmail,
             trailing:EntryActionsContainer(id: entry.id, password: entry.password) ,

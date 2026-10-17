@@ -110,7 +110,7 @@ void main() {
     expect(result.isFailure(), true);
   });
 
-  test('testing Forgot use Case', () async {
+  test('testing Forgot use Case if bioauthnotavailable', () async {
     final result = await database.saveEntry(MockEntries.entrywithid);
     expect(result.isSuccess(), true);
     final getentrie = await database.getentry();
@@ -118,8 +118,38 @@ void main() {
     final forgt = await authUseCases.forgot.call('3156', 'Sruabhd34');
     expect(forgt.isSuccess(), true);
     final freshentry = await database.getentry();
-   
+
     expect(freshentry.data?.isEmpty, true);
-    
   });
+
+  test(
+    'testing Forgot use Case if bioauthavailable and authenticated',
+    () async {
+      stub(isavailble: true, authenticated: true);
+      final result = await database.saveEntry(MockEntries.entrywithid);
+      expect(result.isSuccess(), true);
+      final getentrie = await database.getentry();
+      expect(getentrie.data?.isNotEmpty, true);
+      final forgt = await authUseCases.forgot.call('3156', 'Sruabhd34');
+      expect(forgt.isSuccess(), true);
+      final freshentry = await database.getentry();
+
+      expect(freshentry.data?.isEmpty, true);
+    },
+  );
+   test(
+    'testing Forgot use Case if bioauthavailable and unauthenticated',
+    () async {
+      stub(isavailble: true, authenticated: false);
+      final result = await database.saveEntry(MockEntries.entrywithid);
+      expect(result.isSuccess(), true);
+      final getentrie = await database.getentry();
+      expect(getentrie.data?.isNotEmpty, true);
+      final forgt = await authUseCases.forgot.call('3156', 'Sruabhd34');
+      expect(forgt.isFailure(), true);
+      final freshentry = await database.getentry();
+
+      expect(freshentry.data?.isNotEmpty, true);
+    },
+  );
 }

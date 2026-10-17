@@ -24,6 +24,9 @@ class _AddEntryBottomSheet extends ConsumerState<AddEntryBottomSheet> {
   final TextEditingController userNameorEMail = TextEditingController();
   final TextEditingController password = TextEditingController();
   final GlobalKey<FormState> key = GlobalKey<FormState>();
+  final FocusNode _namenode = FocusNode();
+  final FocusNode _mailnode = FocusNode();
+  final FocusNode _passnode = FocusNode();
   EntryCategory category = EntryCategory.others;
   Widget topline() {
     return Align(
@@ -51,14 +54,16 @@ class _AddEntryBottomSheet extends ConsumerState<AddEntryBottomSheet> {
   Widget bField(
     TextEditingController controller,
     String hinttext,
-    String matcher,
-   { ValueKey? key}
-  ) {
+    String matcher, {
+    ValueKey? key,
+    GlobalKey? contextKey,
+    FocusNode? node,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: SizedBox(
         height: 60,
-
+        key: contextKey,
         child: BFields(
           key: key,
           validator: (v) {
@@ -67,6 +72,7 @@ class _AddEntryBottomSheet extends ConsumerState<AddEntryBottomSheet> {
           contentPadding: const EdgeInsets.only(bottom: 10, left: 5),
           controller: controller,
           hintext: hinttext,
+          focusNode: node,
         ),
       ),
     );
@@ -116,7 +122,6 @@ class _AddEntryBottomSheet extends ConsumerState<AddEntryBottomSheet> {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
               }
-              
             }
           },
           bgcolor: AppColors.primary,
@@ -131,25 +136,51 @@ class _AddEntryBottomSheet extends ConsumerState<AddEntryBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 350,
-      child:SingleChildScrollView(child: Form(
-        key: key,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            topline(),
-            heading('Site name'),
-            bField(key: WidgetKeys.entrynamefield, siteNameController, 'e.g Instagram', 'sitename'),
-            heading('Username or email'),
-            bField( key: WidgetKeys.entryMailorUserfield, userNameorEMail, 'gmail@.com', 'email'),
-            heading('Password'),
-            bField(key: WidgetKeys.entrypassfield,password, 'password', 'pass'),
-            dropdown(),
-            save(),
-          ],
+    return AnimatedPadding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      duration: const Duration(milliseconds: 200),
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Form(
+            key: key,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                topline(),
+                heading('Site name'),
+                bField(
+                  node: _namenode,
+                  key: WidgetKeys.entrynamefield,
+                  siteNameController,
+                  'e.g Instagram',
+                  'sitename',
+                ),
+                heading('Username or email'),
+                bField(
+                  node: _mailnode,
+                  key: WidgetKeys.entryMailorUserfield,
+                  userNameorEMail,
+                  'gmail@.com',
+                  'email',
+                ),
+                heading('Password'),
+                bField(
+                  node: _passnode,
+                  key: WidgetKeys.entrypassfield,
+                  password,
+                  'password',
+                  'pass',
+                ),
+                dropdown(),
+                save(),
+              ],
+            ),
+          ),
         ),
       ),
-    ));
+    );
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:password_manager/src/core/constants/app_string.dart';
 import 'package:password_manager/src/core/result_wrapper/result.dart';
+import 'package:password_manager/src/features/auth/data/biometric_service.dart';
 import 'package:password_manager/src/features/auth/domain/repo/auth_repo.dart';
 
 class AuthUseCases {
@@ -14,7 +17,7 @@ class AuthUseCases {
       checkPass = CheckPass(repo),
       checkPin = CheckPin(repo),
       bioAuth = BioAuth(repo),
-      forgot=Forgot(repo),
+      forgot = Forgot(repo),
       veriFy = VeriFy(repo);
 }
 
@@ -63,6 +66,18 @@ class Forgot {
   Future<Result<void>> call(String pin, String pass) async {
     if (pin.length > 4 || pin.length < 4) {
       return Result.failure('pin should be 4 digits');
+    }
+     if (!(Platform.isAndroid || Platform.isIOS)) {
+      return await repo.forgot(pin, pass);
+    }
+    final bioauthavaible = await repo.isBioAuthAvaible();
+    if (bioauthavaible.isFailure()) {
+      return repo.forgot(pin, pass);
+    }
+   
+    final bioauth = await repo.bioAuth();
+    if (bioauth.isFailure()) {
+      return Result.failure(AppString.bioauthForgotFailed);
     }
     return await repo.forgot(pin, pass);
   }

@@ -28,6 +28,15 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   sqflite_common_ffi: ^2.4.3
   sqlite3_flutter_libs: ^0.6.0+eol
+  flutter_launcher_icons: ^0.14.4
+  
+
+flutter_launcher_icons:
+ android: true
+ image_path: 'assets/app.png'
+ windows:
+  generate: true
+  
 
 flutter:
   uses-material-design: true

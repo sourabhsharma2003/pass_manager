@@ -169,7 +169,6 @@ class MockEntryRepo extends EntryRepo {
     return Result.success(null);
   }
 
-  @override
   Future<Result<void>> deleteDatabase() {
     // TODO: implement deleteDatabase
     throw UnimplementedError();

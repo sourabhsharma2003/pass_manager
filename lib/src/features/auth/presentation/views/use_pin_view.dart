@@ -76,7 +76,8 @@ class _UsePinContainerState extends ConsumerState<UsePinView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child:  Column(
+    return  Column(
+      
       children: [
         _pinFied(),
         const SizedBox(width: 100, child: Divider()),
@@ -95,6 +96,6 @@ class _UsePinContainerState extends ConsumerState<UsePinView> {
           child: Text('Use Password Instead'),
         ),
       ],
-    ));
+    );
   }
 }

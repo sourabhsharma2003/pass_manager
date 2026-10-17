@@ -41,7 +41,7 @@ A secure offline password manager built with Flutter. The application allows use
 
 ## Screenshots
 
-_Add screenshots here_
+(screenshots)
 
 ## Getting Started
 

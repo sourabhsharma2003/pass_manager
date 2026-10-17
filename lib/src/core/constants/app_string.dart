@@ -7,4 +7,6 @@ class AppString {
   static const String passError =
       "Invalid password. Try again or reset password.";
   static const String queryErrorEmptyList = 'No Result found';
+  static const String bioauthForgotFailed =
+      'Bioauthentication failed : Forgot process rejected';
 }

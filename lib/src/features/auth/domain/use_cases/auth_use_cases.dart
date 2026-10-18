@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:password_manager/src/core/constants/app_string.dart';
 import 'package:password_manager/src/core/result_wrapper/result.dart';
-import 'package:password_manager/src/features/auth/data/biometric_service.dart';
 import 'package:password_manager/src/features/auth/domain/repo/auth_repo.dart';
 
 class AuthUseCases {

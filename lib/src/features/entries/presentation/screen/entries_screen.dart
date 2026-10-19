@@ -9,7 +9,7 @@ import 'package:password_manager/src/features/auth/presentation/widgets/valt_con
 import 'package:password_manager/src/features/entries/presentation/riverpod/providers.dart';
 import 'package:password_manager/src/features/entries/presentation/view/add_entry_bottom_sheet.dart';
 import 'package:password_manager/src/features/entries/presentation/view/view_switcher.dart';
-import 'package:password_manager/src/features/entries/presentation/widgets/save_button.dart';
+import 'package:password_manager/src/features/entries/presentation/widgets/button.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/searchbar.dart';
 
 class EntriesScreen extends ConsumerStatefulWidget {
@@ -81,7 +81,7 @@ class _EntriesScreenState extends ConsumerState<EntriesScreen> {
   Widget add() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SaveButton(
+      child: Button(
         key: WidgetKeys.addEntrybutton,
         bgcolor: AppColors.primary,
         onTap: () {

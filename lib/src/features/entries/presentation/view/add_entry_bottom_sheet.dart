@@ -5,10 +5,10 @@ import 'package:password_manager/src/core/constants/colors.dart';
 import 'package:password_manager/src/core/constants/widget_keys.dart';
 import 'package:password_manager/src/features/entries/domain/entry_domain.dart';
 import 'package:password_manager/src/features/entries/presentation/riverpod/providers.dart';
+import 'package:password_manager/src/features/entries/presentation/widgets/button.dart';
 import 'package:password_manager/src/features/entries/utils/helper.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/b_field.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/category_dropdown.dart';
-import 'package:password_manager/src/features/entries/presentation/widgets/save_button.dart';
 
 class AddEntryBottomSheet extends ConsumerStatefulWidget {
   const AddEntryBottomSheet({super.key});
@@ -104,7 +104,7 @@ class _AddEntryBottomSheet extends ConsumerState<AddEntryBottomSheet> {
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SaveButton(
+        child: Button(
           key: WidgetKeys.saveEntrybutton,
           onTap: () {
             if (key.currentState!.validate()) {

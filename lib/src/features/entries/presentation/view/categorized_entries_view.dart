@@ -5,7 +5,7 @@ import 'package:password_manager/src/features/entries/presentation/container/ent
 
 import 'package:password_manager/src/features/entries/presentation/widgets/alphabet_random_profile_widget.dart';
 import 'package:password_manager/src/features/entries/presentation/widgets/entry_card.dart';
-import 'package:password_manager/src/features/entries/presentation/widgets/grouped_builder.dart';
+import 'package:password_manager/src/features/entries/presentation/widgets/group_builder.dart';
 
 class CategorizeEntriesView extends StatelessWidget {
   final Map<EntryCategory, List<EntryDomain>> entries;
@@ -15,7 +15,7 @@ class CategorizeEntriesView extends StatelessWidget {
   Widget build(BuildContext context,) {
     
     return Expanded(
-      child: GroupedBuilder<EntryCategory, EntryDomain>(
+      child: GroupBuilder<EntryCategory, EntryDomain>(
         data: entries,
         groupbuilder: (group) => Padding(
           padding: const EdgeInsets.all(8.0),

@@ -61,6 +61,16 @@ class _EntriesScreenState extends ConsumerState<EntriesScreen> {
   Widget searchbar() {
     return CustomSearchbar(
       hintText: 'Search UserNameOrEmail',
+      onChanged:(p0) {
+         if (controller.text.isEmpty) {
+          ref.read(entryNotifierProvider.notifier).getEntries();
+          return;
+        }
+        ref
+            .read(entryNotifierProvider.notifier)
+            .searchEntries(controller.text.trim());
+      
+      } ,
       onSearch: () {
         if (controller.text.isEmpty) {
           ref.read(entryNotifierProvider.notifier).getEntries();
@@ -81,16 +91,19 @@ class _EntriesScreenState extends ConsumerState<EntriesScreen> {
   Widget add() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Button(
-        key: WidgetKeys.addEntrybutton,
-        bgcolor: AppColors.primary,
-        onTap: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => AddEntryBottomSheet(),
-          );
-        },
-        child: Icon(Icons.add, color: Colors.black),
+      child: SizedBox(
+        width: 50,
+        child: Button(
+          key: WidgetKeys.addEntrybutton,
+          bgcolor: AppColors.primary,
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => AddEntryBottomSheet(),
+            );
+          },
+          child: Icon(Icons.add, color: Colors.black),
+        ),
       ),
     );
   }

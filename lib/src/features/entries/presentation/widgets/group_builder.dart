@@ -16,13 +16,16 @@ class GroupBuilder<K, T> extends StatelessWidget {
       children: data.entries.map((value) {
         final item = value.value;
         return Column(
+         crossAxisAlignment: .start,
           children: [
             groupbuilder(value.key),
             GridView.builder(
+              
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300,
+                maxCrossAxisExtent: 500,
+                mainAxisExtent: MediaQuery.of(context).size.width<200?200:90
               ),
               itemCount: item.length,
               itemBuilder: (context, index) => itembuilder(item[index]),

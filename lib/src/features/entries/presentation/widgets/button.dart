@@ -13,7 +13,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(style: ButtonStyle(backgroundColor:WidgetStatePropertyAll(bgcolor),
+    return ElevatedButton( style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero), backgroundColor:WidgetStatePropertyAll(bgcolor),
       shape: WidgetStatePropertyAll(RoundedRectangleBorder( borderRadius: BorderRadius.all(const Radius.circular(4))))),onPressed: onTap, child: child);
   }
 }

@@ -6,10 +6,10 @@ class CustomSearchbar extends StatelessWidget {
   final TextEditingController textFieldcontroller;
   final void Function() onremove;
   final String? hintText;
-
+  final void Function(String)? onChanged;
   const CustomSearchbar({
     super.key,
-
+    required this.onChanged,
     required this.onSearch,
     required this.textFieldcontroller,
     this.hintText,
@@ -27,6 +27,7 @@ class CustomSearchbar extends StatelessWidget {
   Widget textfield() {
     return Expanded(
       child: TextField(
+        onChanged: onChanged,
         controller: textFieldcontroller,
         onSubmitted: (value) => onSearch(),
         style: const TextStyle(fontSize: 14),
@@ -63,7 +64,7 @@ class CustomSearchbar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: 100,
+        width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(const Radius.circular(16)),

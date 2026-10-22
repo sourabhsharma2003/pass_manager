@@ -66,7 +66,7 @@ class SearchEntry {
         ?.where(
           (v) =>
               v.userNameOrEmail.toLowerCase().contains(query.trim().toLowerCase()) &&
-              v.userNameOrEmail.startsWith(query[0]),
+              v.userNameOrEmail.toLowerCase().startsWith(query[0].toLowerCase().trim()),
         )
         .toList();
 

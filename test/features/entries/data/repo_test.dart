@@ -12,13 +12,14 @@ void main() {
   late EntryDatasorce datasorce;
   late Database db;
   late Uuid uui;
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
+
+  setUpAll(() {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  });
   setUp(() async {
     db = await databaseFactory.openDatabase(inMemoryDatabasePath);
-    await db.execute(
-      EntrySqlConstant.table
-    );
+    await db.execute(EntrySqlConstant.table);
     datasorce = EntryDatasorce();
     await datasorce.init(customdb: db);
     uui = Uuid();
@@ -31,7 +32,6 @@ void main() {
   });
 
   test('Entry Repo: Test Uuid working', () async {
-   
     final save = await repo.saveEntry(MockEntries.entry.todomain());
     expect(save.isSuccess(), true);
 

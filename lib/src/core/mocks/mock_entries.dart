@@ -5,14 +5,14 @@ abstract class MockEntries {
   static const entry=EntryModel(
       id: '',
       sitename: 'sstsite',
-      userNameOrEmail: 'test@gmail.com',
+      userNameOrEmail: 'stest@gmail.com',
       entryCategory: EntryCategory.others,
       password: 'testpassword',
     );
   static const entry2=EntryModel(
       id: '',
       sitename: 'entry',
-      userNameOrEmail: 'test@gmail.com',
+      userNameOrEmail: 'etest@gmail.com',
       password: 'testpass',
       entryCategory: EntryCategory.personal,
     );

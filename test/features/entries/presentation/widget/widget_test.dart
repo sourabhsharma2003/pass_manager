@@ -19,6 +19,8 @@ void main() {
   late EntryUseCases useCases;
   late Widget proiderscope;
 
+  
+
   setUp(() async {
     uuid = Uuid();
     repo = MockEntryRepo(uuid);
@@ -57,9 +59,9 @@ void main() {
     final dropdown = find.byKey(WidgetKeys.dropdowncategory);
     await tester.tap(dropdown);
     await tester.pumpAndSettle();
-    final dropdownoption = find.text(category??'others').first;
+    final dropdownoption = find.text(category??'others',).first;
     expect(dropdownoption, findsAtLeast(1));
-    await tester.tap(dropdownoption);
+    await tester.tap(dropdownoption,warnIfMissed: false);
     await tester.pumpAndSettle();
     final save = find.byKey(WidgetKeys.saveEntrybutton);
     expect(save, findsOneWidget);

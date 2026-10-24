@@ -23,9 +23,12 @@ void main() {
   late AuthNotifier notifier;
   late Database db;
   late EntryDatasorce entryDatasorce;
-  setUp(() async {
-    databaseFactory = databaseFactoryFfi;
 
+  setUpAll(() {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  });
+  setUp(() async {
     db = await databaseFactory.openDatabase(inMemoryDatabasePath);
     await db.execute(EntrySqlConstant.table);
     entryDatasorce = EntryDatasorce();
@@ -35,7 +38,7 @@ void main() {
     states = <AuthState>[];
     container = ProviderContainer(
       overrides: [
-        entryDataprovider.overrideWith((_)=>entryDatasorce),
+        entryDataprovider.overrideWith((_) => entryDatasorce),
         authSecureStorageprovider.overrideWith(
           (_) => StorageService(fakestorage),
         ),
@@ -46,7 +49,8 @@ void main() {
     );
     notifier = container.read(authNotifierProvider.notifier);
   });
-  tearDown(() {
+  tearDown(() async {
+    await db.close();
     states.clear();
     container.dispose();
   });
@@ -154,18 +158,20 @@ void main() {
   });
 
   test('Riverpod: login with right pin', () async {
-    await notifier.createPinAndPass('test', '2255');
     final sub = container.listen<AuthState>(
       authNotifierProvider,
       (prev, next) => states.add(next),
       fireImmediately: true,
     );
+    await notifier.createPinAndPass('test', '2255');
+   
+    
     await notifier.logviaPin('2255');
     sub.close();
-
-    expect(states[1].authScreenState, AuthScreenState.loading);
-    expect(states[1].authenticated, false);
-    expect(states[2].authenticated, true);
+    
+    expect(states[2].authScreenState, AuthScreenState.loading);
+    expect(states[3].authenticated, false);
+    expect(states[4].authenticated, true);
   });
 
   test('Riverpod: login with wrong pin', () async {
@@ -223,7 +229,7 @@ void main() {
     await notifier.forgot('testforgot', '4215');
     sub.close();
     expect(states[0].authScreenState, AuthScreenState.loading);
-  
+
     expect(states[1].authenticated, true);
   });
 }

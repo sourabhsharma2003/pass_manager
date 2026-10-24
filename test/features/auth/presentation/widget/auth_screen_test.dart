@@ -130,15 +130,14 @@ void main() {
     ).thenAnswer((_) async => Result.failure('error'));
 
     await tester.pumpWidget(providerscope);
-
     await tester.pumpAndSettle();
-
+    expect(find.byKey(WidgetKeys.usePinView), findsOneWidget);
     final passbutton = find.byKey(WidgetKeys.usePasswordbuttom);
     await tester.ensureVisible(passbutton);
-
+    expect(passbutton, findsOneWidget);
     await tester.tap(passbutton);
+    await tester.pump();
     await tester.pumpAndSettle();
-
     expect(find.byKey(WidgetKeys.usePasswordView), findsOneWidget);
     final passfield = find.byKey(WidgetKeys.loginpassfield);
     await tester.enterText(passfield, 'testpass');

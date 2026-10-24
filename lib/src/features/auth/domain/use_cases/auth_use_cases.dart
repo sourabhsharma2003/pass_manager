@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:password_manager/src/core/constants/app_string.dart';
 import 'package:password_manager/src/core/result_wrapper/result.dart';
@@ -66,9 +66,7 @@ class Forgot {
     if (pin.length > 4 || pin.length < 4) {
       return Result.failure('pin should be 4 digits');
     }
-     if (!(Platform.isAndroid || Platform.isIOS)) {
-      return await repo.forgot(pin, pass);
-    }
+    
     final bioauthavaible = await repo.isBioAuthAvaible();
     if (bioauthavaible.isFailure()) {
       return repo.forgot(pin, pass);

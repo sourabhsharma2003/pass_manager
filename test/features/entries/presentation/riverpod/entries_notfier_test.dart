@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:password_manager/src/core/mocks/mock_entries.dart';
@@ -10,16 +8,17 @@ import 'package:password_manager/src/features/entries/presentation/riverpod/entr
 import 'package:password_manager/src/features/entries/presentation/riverpod/providers.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-
 void main() {
   late ProviderContainer container;
   late Database db;
   late EntryDatasorce datasorce;
   late List<EntryPageState> states;
   late EntryNotifier controller;
+  setUpAll(() {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  });
 
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
   setUp(() async {
     states = <EntryPageState>[];
 

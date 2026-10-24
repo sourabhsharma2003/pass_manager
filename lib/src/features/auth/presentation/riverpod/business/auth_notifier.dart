@@ -38,7 +38,7 @@ class AuthNotifier extends Notifier<AuthState> {
     final result = await useCases.bioAuth.call();
     if (result.isFailure()) {
       state = state.copywith(
-       error: result.error,
+       
         authScreenState: AuthScreenState.pin,
       );
       return;

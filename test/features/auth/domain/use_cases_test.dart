@@ -22,8 +22,11 @@ void main() {
   late EntryDatasorce database;
   late Database db;
 
+   setUpAll(() {sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;});
+
   setUp(() async {
-    databaseFactory = databaseFactoryFfi;
+   
 
     db = await databaseFactory.openDatabase(inMemoryDatabasePath);
     await db.execute(EntrySqlConstant.table);
@@ -55,6 +58,9 @@ void main() {
     ).thenAnswer((_) async => authenticated!);
   }
 
+  tearDown(() async {
+    await db.close();
+  });
   test(
     'BioAuthUsecase: if divice not supported or bioAuth not available',
     () async {
@@ -137,7 +143,7 @@ void main() {
       expect(freshentry.data?.isEmpty, true);
     },
   );
-   test(
+  test(
     'testing Forgot use Case if bioauthavailable and unauthenticated',
     () async {
       stub(isavailble: true, authenticated: false);

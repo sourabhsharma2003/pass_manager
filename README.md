@@ -9,8 +9,9 @@ A secure offline password manager built with Flutter. The application allows use
 -  Password Unlock
 -  Create, Reset, and Forgot Credentials Flow
 -  Security Focused
+  - flutter secure storage  
   - Uses SQLCipher for encrypted password storage
-  - Encryption keys injected at build time using `--dart-define`
+  - Encryption keys(only identifiers) injected at build time using `--dart-define`
   - Fully offline, no network dependency
 
 ## Architecture
